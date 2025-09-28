@@ -14,11 +14,12 @@
         body {
             font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
             min-height: 100vh;
+            min-height: 100dvh;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 10px;
             overflow: hidden;
             position: relative;
         }
@@ -72,6 +73,7 @@
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             max-width: 400px;
             width: 100%;
+            max-width: min(400px, 100%);
             text-align: center;
             position: relative;
             z-index: 1;
@@ -243,18 +245,76 @@
         }
 
         @media (max-width: 480px) {
-            .word-display {
-                font-size: 36px;
-                padding: 30px 15px;
+            body {
+                padding: 10px;
             }
-            
+
+            .container {
+                padding: 25px 15px;
+                border-radius: 20px;
+            }
+
+            .word-display {
+                font-size: 32px;
+                padding: 25px 10px;
+                min-height: 110px;
+                border-radius: 15px;
+            }
+
             .title {
+                font-size: 20px;
+                margin-bottom: 20px;
+            }
+
+            .emoji {
+                font-size: 28px;
+            }
+
+            .btn {
+                font-size: 18px;
+                padding: 14px 30px;
+                margin-top: 15px;
+            }
+
+            .bg-shape:nth-child(1) {
+                width: 150px;
+                height: 150px;
+            }
+
+            .bg-shape:nth-child(2) {
+                width: 100px;
+                height: 100px;
+            }
+
+            .bg-shape:nth-child(3) {
+                width: 75px;
+                height: 75px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .container {
+                padding: 20px 12px;
+            }
+
+            .word-display {
+                font-size: 28px;
+                padding: 20px 8px;
+                min-height: 100px;
+                letter-spacing: 2px;
+            }
+
+            .title {
+                font-size: 18px;
+            }
+
+            .emoji {
                 font-size: 24px;
             }
-            
+
             .btn {
-                font-size: 20px;
-                padding: 16px 35px;
+                font-size: 16px;
+                padding: 12px 25px;
             }
         }
     </style>
