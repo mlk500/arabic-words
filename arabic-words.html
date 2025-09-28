@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>اقرأ الكلمة - Read the Word</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Animated background shapes */
+        .bg-shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .bg-shape:nth-child(1) {
+            width: 200px;
+            height: 200px;
+            background: #ff6b6b;
+            top: -50px;
+            left: -50px;
+            animation-delay: 0s;
+        }
+
+        .bg-shape:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            background: #4ecdc4;
+            bottom: -50px;
+            right: -50px;
+            animation-delay: 5s;
+        }
+
+        .bg-shape:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            background: #ffe66d;
+            top: 50%;
+            left: -25px;
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-20px) rotate(90deg); }
+            50% { transform: translateY(0) rotate(180deg); }
+            75% { transform: translateY(20px) rotate(270deg); }
+        }
+
+        .container {
+            background: white;
+            border-radius: 30px;
+            padding: 40px 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            transform: scale(1);
+            transition: transform 0.3s ease;
+        }
+
+        .title {
+            font-size: 28px;
+            color: #5a67d8;
+            margin-bottom: 30px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .emoji {
+            font-size: 35px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .word-display {
+            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            color: white;
+            font-size: 48px;
+            padding: 40px 20px;
+            border-radius: 20px;
+            margin: 20px 0;
+            min-height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            letter-spacing: 3px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .word-display::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .word {
+            position: relative;
+            z-index: 1;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { 
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to { 
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            font-size: 22px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 8px 20px rgba(255,107,107,0.3);
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:active::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(255,107,107,0.4);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            font-size: 30px;
+            animation: twinkle 3s infinite;
+            opacity: 0;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; transform: scale(0.5) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1.2) rotate(180deg); }
+        }
+
+        .celebration {
+            position: fixed;
+            pointer-events: none;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ff6b6b;
+            animation: confetti-fall 3s linear;
+        }
+
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .word-display {
+                font-size: 36px;
+                padding: 30px 15px;
+            }
+            
+            .title {
+                font-size: 24px;
+            }
+            
+            .btn {
+                font-size: 20px;
+                padding: 16px 35px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-shape"></div>
+    <div class="bg-shape"></div>
+    <div class="bg-shape"></div>
+    
+    <div class="stars" id="stars"></div>
+    
+    <div class="container">
+        <div class="title">
+            <span class="emoji">📚</span>
+            <span>اقرأ الكلمة</span>
+            <span class="emoji">✨</span>
+        </div>
+        
+        <div class="word-display">
+            <div class="word" id="word">اضغط للبدء</div>
+        </div>
+        
+        <button class="btn" onclick="showNewWord()">
+            🎲 كلمة جديدة
+        </button>
+    </div>
+
+    <div class="celebration" id="celebration"></div>
+
+    <script>
+        // First grade Arabic words list
+        const words = [
+            'دار', 'دور', 'دادا', 'دودو', 'رورو',
+            'داد', 'داري', 'دوري', 'دود'
+        ];
+
+        let lastWord = '';
+        let wordHistory = [];
+        const maxHistory = Math.floor(words.length / 2);
+
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 10; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.innerHTML = '⭐';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        function createConfetti() {
+            const celebration = document.getElementById('celebration');
+            celebration.innerHTML = '';
+            
+            const colors = ['#ff6b6b', '#4ecdc4', '#ffe66d', '#6c5ce7', '#a8e6cf'];
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                celebration.appendChild(confetti);
+            }
+            
+            setTimeout(() => {
+                celebration.innerHTML = '';
+            }, 3000);
+        }
+
+        function getRandomWord() {
+            let availableWords = words.filter(word => !wordHistory.includes(word));
+            
+            if (availableWords.length === 0) {
+                wordHistory = [];
+                availableWords = words;
+            }
+            
+            const randomIndex = Math.floor(Math.random() * availableWords.length);
+            const selectedWord = availableWords[randomIndex];
+            
+            wordHistory.push(selectedWord);
+            if (wordHistory.length > maxHistory) {
+                wordHistory.shift();
+            }
+            
+            return selectedWord;
+        }
+
+        function showNewWord() {
+            const wordElement = document.getElementById('word');
+            const newWord = getRandomWord();
+            
+            // Animate word change
+            wordElement.style.animation = 'none';
+            setTimeout(() => {
+                wordElement.textContent = newWord;
+                wordElement.style.animation = 'fadeIn 0.5s ease';
+            }, 10);
+            
+            // Create celebration effect occasionally
+            if (Math.random() > 0.7) {
+                createConfetti();
+            }
+            
+            // Vibrate on mobile if available
+            if (navigator.vibrate) {
+                navigator.vibrate(50);
+            }
+        }
+
+        // Initialize on load
+        window.onload = function() {
+            createStars();
+            // Show first word automatically
+            setTimeout(showNewWord, 500);
+        };
+    </script>
+</body>
+</html>
