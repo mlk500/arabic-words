@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>اقرأ الكلمة - Read the Word</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,7 +15,7 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+            font-family: 'IBM Plex Sans Arabic', 'Segoe UI', Tahoma, Arial, sans-serif;
             min-height: 100vh;
             min-height: 100dvh;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -82,9 +85,9 @@
             border-radius: 30px;
             padding: 40px 30px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            max-width: 400px;
+            max-width: 600px;
             width: 100%;
-            max-width: min(400px, calc(100vw - 20px));
+            max-width: min(600px, calc(100vw - 20px));
             text-align: center;
             position: relative;
             z-index: 1;
@@ -116,12 +119,12 @@
         .word-display {
             background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
             color: white;
-            font-size: 48px;
-            padding: 40px 20px;
+            font-size: 80px;
+            padding: 50px 30px;
             border-radius: 20px;
             margin: 20px 0;
-            min-height: 140px;
-            height: 140px;
+            min-height: 180px;
+            height: 180px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -141,7 +144,6 @@
             height: 200%;
             background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
             animation: shimmer 3s infinite;
-            will-change: transform;
         }
 
         @keyframes shimmer {
@@ -169,52 +171,14 @@
             }
         }
 
-        .btn {
-            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
-            color: white;
-            border: none;
-            padding: 18px 40px;
-            font-size: 22px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: bold;
-            box-shadow: 0 8px 20px rgba(255,107,107,0.3);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        .instruction {
+            background: rgba(76, 237, 196, 0.1);
+            color: #2d3748;
+            padding: 15px 20px;
+            border-radius: 15px;
+            font-size: 20px;
             margin-top: 20px;
-            position: relative;
-            overflow: hidden;
-            touch-action: manipulation;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.4s, height 0.4s;
-        }
-
-        .btn:active::before {
-            width: 300px;
-            height: 300px;
-        }
-
-        @media (hover: hover) {
-            .btn:hover {
-                transform: translateY(-3px);
-                box-shadow: 0 12px 25px rgba(255,107,107,0.4);
-            }
-        }
-
-        .btn:active {
-            transform: translateY(0);
-            box-shadow: 0 6px 15px rgba(255,107,107,0.3);
+            border: 2px solid #4ecdc4;
         }
 
         .stars {
@@ -265,6 +229,49 @@
             }
         }
 
+        .error-message {
+            background: #fee;
+            color: #c00;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        .all-words {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px dashed #ddd;
+        }
+
+        .all-words h3 {
+            color: #5a67d8;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .words-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .word-item {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 10px;
+            border-radius: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .word-item:hover {
+            transform: scale(1.1);
+        }
+
         @media (max-width: 480px) {
             body {
                 padding: 10px;
@@ -276,10 +283,10 @@
             }
 
             .word-display {
-                font-size: 32px;
-                padding: 25px 10px;
-                min-height: 110px;
-                height: 110px;
+                font-size: 48px;
+                padding: 30px 15px;
+                min-height: 130px;
+                height: 130px;
                 border-radius: 15px;
             }
 
@@ -292,10 +299,14 @@
                 font-size: 28px;
             }
 
-            .btn {
-                font-size: 18px;
-                padding: 14px 30px;
-                margin-top: 15px;
+            .instruction {
+                font-size: 16px;
+                padding: 12px 15px;
+            }
+
+            .word-item {
+                font-size: 22px;
+                padding: 15px 8px;
             }
 
             .bg-shape {
@@ -313,10 +324,10 @@
             }
 
             .word-display {
-                font-size: 28px;
-                padding: 20px 8px;
-                min-height: 100px;
-                height: 100px;
+                font-size: 40px;
+                padding: 25px 10px;
+                min-height: 120px;
+                height: 120px;
                 letter-spacing: 2px;
             }
 
@@ -328,9 +339,14 @@
                 font-size: 24px;
             }
 
-            .btn {
-                font-size: 16px;
-                padding: 12px 25px;
+            .instruction {
+                font-size: 14px;
+                padding: 10px 12px;
+            }
+
+            .word-item {
+                font-size: 20px;
+                padding: 12px 6px;
             }
         }
     </style>
@@ -350,26 +366,30 @@
         </div>
         
         <div class="word-display">
-            <div class="word" id="word">اضغط للبدء</div>
+            <div class="word" id="word">...</div>
         </div>
-        
-        <button class="btn" onclick="showNewWord()">
-            🎲 كلمة جديدة
-        </button>
+
+        <div id="allWords" style="display: none;" class="all-words">
+            <h3>🎯 اختر كلمة</h3>
+            <div class="words-grid" id="wordsGrid"></div>
+        </div>
     </div>
 
     <div class="celebration" id="celebration"></div>
 
     <script>
-        // First grade Arabic words list
-        const words = [
-            'دار', 'دور', 'دادا', 'دودو', 'رورو',
-            'داد', 'داري', 'دوري', 'دود'
-        ];
-
-        let lastWord = '';
-        let wordHistory = [];
-        const maxHistory = Math.floor(words.length / 2);
+        // Word list with IDs
+        const words = {
+            '1': 'دار',
+            '2': 'دور',
+            '3': 'دادا',
+            '4': 'دودو',
+            '5': 'رورو',
+            '6': 'داد',
+            '7': 'داري',
+            '8': 'دوري',
+            '9': 'دود'
+        };
 
         function createStars() {
             const starsContainer = document.getElementById('stars');
@@ -405,44 +425,63 @@
             }, 3000);
         }
 
-        function getRandomWord() {
-            let availableWords = words.filter(word => !wordHistory.includes(word));
-            
-            if (availableWords.length === 0) {
-                wordHistory = [];
-                availableWords = words;
-            }
-            
-            const randomIndex = Math.floor(Math.random() * availableWords.length);
-            const selectedWord = availableWords[randomIndex];
-            
-            wordHistory.push(selectedWord);
-            if (wordHistory.length > maxHistory) {
-                wordHistory.shift();
-            }
-            
-            return selectedWord;
+        function getWordFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const wordId = urlParams.get('w');
+            return wordId;
         }
 
-        function showNewWord() {
+        function displayWord(wordId) {
             const wordElement = document.getElementById('word');
-            const newWord = getRandomWord();
+            const word = words[wordId];
 
-            wordElement.classList.remove('animate');
-            void wordElement.offsetWidth;
-            wordElement.textContent = newWord;
-            wordElement.classList.add('animate');
+            if (word) {
+                wordElement.classList.remove('animate');
+                void wordElement.offsetWidth;
+                wordElement.textContent = word;
+                wordElement.classList.add('animate');
 
-            if (navigator.vibrate) {
-                navigator.vibrate(30);
+                // Vibrate on mobile if available
+                if (navigator.vibrate) {
+                    navigator.vibrate(30);
+                }
+            } else {
+                // If no word ID or invalid ID, show all words to choose from
+                showAllWords();
+            }
+        }
+
+        function showAllWords() {
+            const wordElement = document.getElementById('word');
+            wordElement.textContent = 'اختر كلمة';
+            
+            document.getElementById('instruction').style.display = 'none';
+            document.getElementById('allWords').style.display = 'block';
+            
+            const grid = document.getElementById('wordsGrid');
+            grid.innerHTML = '';
+            
+            for (const [id, word] of Object.entries(words)) {
+                const wordDiv = document.createElement('div');
+                wordDiv.className = 'word-item';
+                wordDiv.textContent = word;
+                wordDiv.onclick = () => {
+                    window.location.href = `?w=${id}`;
+                };
+                grid.appendChild(wordDiv);
             }
         }
 
         // Initialize on load
         window.onload = function() {
             createStars();
-            // Show first word automatically
-            setTimeout(showNewWord, 500);
+            
+            const wordId = getWordFromURL();
+            if (wordId) {
+                displayWord(wordId);
+            } else {
+                showAllWords();
+            }
         };
     </script>
 </body>
